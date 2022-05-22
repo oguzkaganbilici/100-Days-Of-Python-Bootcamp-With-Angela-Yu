@@ -29,6 +29,5 @@ while flag:
                 choice.make_coffee(cost)
 
         elif order == "cappuccino":
-            drink = Menu().menu[2]
             if choice.is_resource_sufficient(cost) and current.make_payment(cost.cost):
                 choice.make_coffee(cost)
