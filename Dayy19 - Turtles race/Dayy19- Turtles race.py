@@ -37,10 +37,5 @@ while flag:
                 
         velocity = random.randint(0, 20)
         turt.forward(velocity)
-        
-        
 
-    
-
-    
 screen.exitonclick()
