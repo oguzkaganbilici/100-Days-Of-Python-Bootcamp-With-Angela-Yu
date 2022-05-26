@@ -44,12 +44,9 @@ while flag:
         flag = False
         score.gameOver()
         
-    for i in s1.whole_snake:
-        if i == s1.head:
-            pass
-        elif s1.head.distance(i) < 10:
+    for i in s1.whole_snake[1:]:
+        if s1.head.distance(i) < 10:
             flag = False
             score.gameOver()
         
-    
 screen.exitonclick()
