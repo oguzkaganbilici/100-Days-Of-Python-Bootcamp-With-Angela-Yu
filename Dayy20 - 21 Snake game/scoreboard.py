@@ -26,6 +26,3 @@ class Scoreboard(turtle.Turtle):
         self.setposition(0,0)
         self.write("Game Over", move = False, align= "center", font=("Courier",25,"normal"))
     
-  
-        
-        
