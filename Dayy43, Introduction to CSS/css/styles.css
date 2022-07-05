@@ -3,14 +3,19 @@ body {
     background-color: #DFF6FF;
     }
 
+.profilePic {
+ width: 90%;
+ }
+
 hr  {
     border-top: 5px dotted grey;
-    width : 3%;
+    width : 2%;
     }
 
+
 h1  {
-    color: #A27B5C;
+    color: #06283D;
     }
 h3  {
-    color: #A27B5C;
+    color: #06283D;
     }
