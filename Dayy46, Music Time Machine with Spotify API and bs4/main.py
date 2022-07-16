@@ -19,7 +19,6 @@ with open("songs.txt", "w") as file:
         file.write(i.getText().strip())
         file.write("\n")
 
-    file.write("sdfasdfasdf\n")
 
 sp = spotipy.Spotify(
     auth_manager=SpotifyOAuth(
