@@ -1,37 +1,48 @@
-from bs4 import BeautifulSoup
 import requests
+from bs4 import BeautifulSoup
 import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials
+from spotipy.oauth2 import SpotifyOAuth
 
-SPOTIPY_CLIENT_ID="15f082f3fe1b470f97e38ff9332aad9d"
-SPOTIPY_CLIENT_SECRET="37363338f766462187824e31154c81c2"
-SP_URL = "http://example.com"
+CLIENT_ID = "15f082f3fe1b470f97e38ff9332aad9d"
+CLIENT_SECRET = "3739ba70e2a047489934616011ef0dd5"
 
-date = input("Which year do you want to travel to?: YY-MM-DD ")
-url = requests.get(f"https://www.billboard.com/charts/hot-100/{date}/")
-respond = BeautifulSoup(url.text, "html.parser")
+date = input("Which year do you want to travel to? (YY-MM-DD): ")
+songs_url = f"https://www.billboard.com/charts/hot-100/{date}/"
 
-#songs = respond.find_all(name="h3", id="title-of-a-story",class_="c-title a-no-trucate")
-songs = respond.select(selector="li.o-chart-results-list__item h3")
+respond = requests.get(songs_url)
+soup = BeautifulSoup(respond.text, "html.parser")
+
+song = soup.select(selector="li ul h3")
+songs = [xx.getText().strip() for xx in song]
 with open("songs.txt", "w") as file:
-    for i in songs:
+    for i in song:
         file.write(i.getText().strip())
         file.write("\n")
 
-"""sp = spotipy.oauth2.SpotifyOAuth(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET,
-                                 redirect_uri=SP_URL, scope="playlist-modify-private")
+    file.write("sdfasdfasdf\n")
 
-#access_token = sp.get_access_token()
-acc_tok = {"access_token": "BQB3sMVOBsHPFxq1MUhdIZDbKgxz-p56XCBE9YgGpXB2GoYqqIa9XBEGZI_xB8MkwvNd6wMjHpq5wD0veuqPFykgDz76TuKjn1x7MO1SxFhaXGOTM1TcXD-Xdc6J7PaQJGaKzCT-OVSlt-4Ako79QbZxheimrGPROXYLgfVGp_bH1vGZjIQ9thP7FuFLwxTpXcHkEXkIIIoRJbDjVNZj",
-           "token_type": "Bearer",
-           "expires_in": 3600,
-           "refresh_token": "AQAQtLE0JE_dEW8EZz5uKKed-uJfhxpt0lawxEho2s_8YZxXC4bB5PKZ48su9wO7JVexvtIMxi8GxpMWOANaVyevr_e9_zzsz3PbwFpgi64LZ6un4p__RZYoeHNyzFU23YY",
-           "scope": "playlist-modify-private",
-           "expires_at": 1657714461}
+sp = spotipy.Spotify(
+    auth_manager=SpotifyOAuth(
+        client_id=CLIENT_ID,
+        client_secret=CLIENT_SECRET,
+        scope="playlist-modify-public",
+        redirect_uri="https://example.com/callback/",
+        show_dialog=True,
+        cache_path="token.txt"
+    )
+)
+user_id = sp.current_user()["id"]
 
-spoti = spotipy.Spotify(acc_tok["access_token"])
-print(spoti.current_user())
+songs_uri = []
+for i in songs:
+    #print(sp.search(q=f"track:{i} year:2000", type="track", limit=1)["tracks"]["items"][0]["uri"])
+    try:
+        songs_uri.append(sp.search(q=f"track:{i} year:{date.split('-')[0]}", type="track", limit=1)["tracks"]["items"][0]["uri"])
+    except:
+        print("This song is not avaible in Spotify: ",i)
+
+playlist = sp.user_playlist_create(user=user_id, name=f"Hit songs from {date}",
+                                   description="This playlist was created by python-spotif api project. It takes hit songs from www.billboard.com")
 
 
-
-"""
+sp.playlist_add_items(playlist_id=playlist["id"], items=songs_uri, position=None)
