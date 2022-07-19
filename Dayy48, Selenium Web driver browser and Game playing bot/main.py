@@ -17,24 +17,24 @@ def checkConsole():
     factory_price = int(factory.text.split("-")[1])
 
     mine = driver.find_element(By.XPATH, '//*[@id="buyMine"]/b')
-    mine_price = int(mine.text.split("-")[1].replace(",",""))
+    mine_price = int(mine.text.split("-")[1].replace(",", ""))
 
     shipment = driver.find_element(By.XPATH, '//*[@id="buyShipment"]/b')
-    shipment_price = int(shipment.text.split("-")[1].replace(",",""))
+    shipment_price = int(shipment.text.split("-")[1].replace(",", ""))
 
     alchemy = driver.find_element(By.XPATH, '//*[@id="buyAlchemy lab"]/b')
-    alchemy_price = int(alchemy.text.split("-")[1].replace(",",""))
+    alchemy_price = int(alchemy.text.split("-")[1].replace(",", ""))
 
     portal = driver.find_element(By.XPATH, '//*[@id="buyPortal"]/b')
-    portal_price = int(portal.text.split("-")[1].replace(",",""))
+    portal_price = int(portal.text.split("-")[1].replace(",", ""))
 
     timeMachine = driver.find_element(By.XPATH, '//*[@id="buyTime machine"]/b')
-    timeMachine_price = int(timeMachine.text.split("-")[1].replace(",",""))
+    timeMachine_price = int(timeMachine.text.split("-")[1].replace(",", ""))
 
-    prices = [cursor_price,grandma_price,factory_price,mine_price,shipment_price,
-              alchemy_price,portal_price,timeMachine_price]
+    prices = [cursor_price, grandma_price, factory_price, mine_price, shipment_price,
+              alchemy_price, portal_price, timeMachine_price]
 
-    for i in range(len(prices)-1, -1, -1):
+    for i in range(len(prices) - 1, -1, -1):
         if money > prices[i]:
             selector = i
             break
