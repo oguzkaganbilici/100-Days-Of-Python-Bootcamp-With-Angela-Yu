@@ -60,32 +60,3 @@ for i in jobs:
 
     except NoSuchElementException:
         pass
-
-
-""" 
-
-
-        while flag:
-            print("next buton bulundu")
-            time.sleep(2)
-            if next_button:
-                next_button.click()
-            else:
-                flag = False
-    else:
-        i.click()
-        time.sleep(3)
-
-
-
-print("basvuruya tıkladı")
-        time.sleep(5)
-        try:
-            
-            
-            
-            while next_button:
-                next_button.click()
-                print("next butonuna tikladi")
-                errors = driver.find_element(By.CLASS_NAME, "fb-radio-buttons")
-"""
