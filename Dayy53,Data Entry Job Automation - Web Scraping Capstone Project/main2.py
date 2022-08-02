@@ -1,3 +1,5 @@
+#using bs4 to get datas instead of selenium
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import requests
