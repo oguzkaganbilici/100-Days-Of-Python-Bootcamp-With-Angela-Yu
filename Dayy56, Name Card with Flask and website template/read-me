@@ -1,0 +1,2 @@
+when flask render, it looks for "templates" and "static" folders.
+you have to put html folder in templates, css and images must be in static.
