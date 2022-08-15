@@ -8,16 +8,16 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    respond = requests.get("https://api.npoint.io/4af156202f984d3464c3")
-    datas = respond.json()
     nums = []
     for i in datas:
-        nums.append(i['id'])
-    return render_template("index.html",)
+        nums.append(int(i['id']))
+    return render_template("index.html", nums_=nums)
 
-@app.route('/post/')
-def blog():
-    return render_template("post.html")
+@app.route('/post/<num>')
+def blog(num):
+    infos = datas[int(num)]
+
+    return render_template("post.html", infos_=infos)
 
 
 if __name__ == "__main__":
