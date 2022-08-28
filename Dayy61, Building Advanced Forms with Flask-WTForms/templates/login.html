@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		{% extends "bootstrap/base.html" %}
+		{% import "bootstrap/wtf.html" as wtf %}
+
+		{% block title %}Login{% endblock %}
+		{% block styles %}
+		{{ super() }}
+		<link rel="stylesheet" href="{{ url_for('.static', filename='mystyle.css') }}">
+		{% endblock %}
+	</head>
+	<body>
+	{% block content %}
+        <div class="container">
+		<h1>Login</h1>
+			{{ wtf.quick_form(form_) }}
+		<form action="{{ url_for('login') }}" method="post" novalidate>
+			<p>
+				{{ form_.email.label }} <br> {{ form_.email(size=30) }}
+				{% for x in form_.email.errors %}
+				<span style="color:red">{{ x }}</span>
+				{% endfor %}
+			</p>
+			<p>
+				{{ form_.password.label }} <br> {{ form_.password(size=30) }}
+				{% for x in form_.password.errors %}
+				<span style="color:red">{{ x }}</span>
+				{% endfor %}
+			</p>
+			  {{ form_.button }}
+		</form>
+        </div>
+	{% endblock %}
+	</body>
+</html>
