@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired
 import csv
 
@@ -12,6 +12,14 @@ Bootstrap(app)
 
 class CafeForm(FlaskForm):
     cafe = StringField('Cafe name', validators=[DataRequired()])
+    cafe_locs = StringField("Cafe's Location on Google Map URL", validators=[DataRequired()])
+    opening_time = StringField("Opening Time e.g. 8AM", validators=[DataRequired()])
+    closing_time = StringField("Closing Time e.g. 8AM", validators=[DataRequired()])
+    coffee_rating = SelectField("Coffee Rating", choices=["☕", "☕☕", "☕☕☕", "☕☕☕☕", "☕☕☕☕☕"],validators=[DataRequired()])
+    wifi_rating = SelectField("WiFi Strength Rating", choices=["💪", "💪💪", "💪💪💪", "💪💪💪💪", "💪💪💪💪💪"],
+                                validators=[DataRequired()])
+    power_socket = SelectField("Power Socket Availability", choices=["🔌", "🔌🔌", "🔌🔌🔌", "🔌🔌🔌🔌", "🔌🔌🔌🔌🔌"],
+                              validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 # Exercise:
@@ -29,11 +37,25 @@ def home():
     return render_template("index.html")
 
 
-@app.route('/add')
+@app.route('/add', methods=['GET', 'POST'])
 def add_cafe():
     form = CafeForm()
+    new_data = []
     if form.validate_on_submit():
-        print("True")
+        new_data.append(form.cafe.data)
+        new_data.append(form.cafe_locs.data)
+        new_data.append(form.opening_time.data)
+        new_data.append(form.closing_time.data)
+        new_data.append(form.coffee_rating.data)
+        new_data.append(form.wifi_rating.data)
+        new_data.append(form.power_socket.data)
+
+        with open("cafe-data.csv", 'a', encoding="utf-8") as writ:
+            writer_ = csv.writer(writ)
+            writer_.writerow(new_data)
+
+
+
     # Exercise:
     # Make the form write a new row into cafe-data.csv
     # with   if form.validate_on_submit()
@@ -48,7 +70,6 @@ def cafes():
         for row in csv_data:
             list_of_rows.append(row)
 
-        print(list_of_rows)
     return render_template('cafes.html', cafes=list_of_rows)
 
 

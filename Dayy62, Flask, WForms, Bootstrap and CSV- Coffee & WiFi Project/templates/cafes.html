@@ -18,35 +18,48 @@
           Table that contains all the information from the 
           cafe-data.csv file. -->
           <thead>
-              <tr>
-                  {% for i in cafes[0] %}
-                    <th scope="row">
-                        {{ i }}
-                    </th>
-                  {% endfor %}
-              </tr>
+
+          <tr>
+            {% for i in cafes[0] %}
+              <th scope="row">{{ i }} </th>
+              {% endfor %}
+          </tr>
           </thead>
+
           <tbody>
           {% for i in cafes[1:] %}
+            {% if i[0] %}
               <tr>
-                  <th scope="row">
+                  <th scope="col">
                     {{ i[0] }}
                   </th>
+                  <th scope="col">
+                    <a href=" {{ i[1] }} ">Maps Link</a>
+                  </th>
+                  <th scope="col">
+                    {{ i[2] }}
+                  </th>
+                  <th scope="col">
+                    {{ i[3] }}
+                  </th>
+                  <th scope="col">
+                    {{ i[4] }}
+                  </th>
+                  <th scope="col">
+                    {{ i[5] }}
+                  </th>
+                  <th scope="col">
+                    {{ i[6] }}
+                  </th>
+
               </tr>
+            {% endif %}
           {% endfor %}
           </tbody>
-          <tbody>
-            {% for locs in cafes[1:] %}
-                <tr>
-                    <th scope="row">
-                        {{ locs[1] }}
-                    </th>
-                </tr>
-            {% endfor %}
-          </tbody>
+
   	  </table>
 
-      <p><a href="#">Return to index page</a></p>
+      <p><a href=" {{ url_for('home') }}">Return to index page</a></p>
 
     </div>
   </div>
