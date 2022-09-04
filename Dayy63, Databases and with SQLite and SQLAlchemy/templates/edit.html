@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+</head>
+<body>
+    <form action="/edit/id=<book_id>" method="post" name="update_ranking" id="edit_form" novalidate>
+        <p>Book Name: {{ title_ }} </p>
+        <p>Current Rating: {{ rating_ }}</p>
+        <input type="text" name="new_rating" required>
+        <input type="hidden" name="_id_" value="{{ id_ }}">
+        <button type="submit">Change Rating</button>
+    </form>
+</body>
+</html>

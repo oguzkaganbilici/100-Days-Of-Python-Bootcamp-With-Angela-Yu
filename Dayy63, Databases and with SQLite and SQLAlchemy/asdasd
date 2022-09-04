@@ -1,0 +1,20 @@
+
+
+
+
+    form = EditPage(meta={'csrf': False})
+    if request.method == 'GET':
+        _title = db.session.query(books).get(book_id).title
+        _rating = db.session.query(books).get(book_id).rating
+        return render_template('edit.html',book_id, form=form, title_=_title, rating_=_rating)
+    if request.method == 'POST':
+        return
+    if form.validate_on_submit():
+        print(escape(book_id))
+        new_rating = form.new_rating.data
+
+        return home()
+
+
+
+        {{ url_for('delete_book', next= delete_id=i.id) }}
