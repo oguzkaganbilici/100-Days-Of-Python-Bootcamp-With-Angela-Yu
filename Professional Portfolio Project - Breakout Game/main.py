@@ -1,3 +1,4 @@
+import time
 from turtle import *
 import random
 COLORS = ["green","red","yellow","blue","white","cyan"]
@@ -12,13 +13,9 @@ class Paddle(Turtle):
         self.penup()
         self.goto(x, y)
 
-    def move_right(self):
-        x_pos = self.xcor()
-        self.goto(x_pos+10, self.ycor())
+    def move(self, x):
+        self.goto(x, self.ycor())
 
-    def move_left(self):
-        x_pos = self.xcor()
-        self.goto(x_pos-10, self.ycor())
 
 class Box(Turtle):
     def __init__(self,x,y):
@@ -31,17 +28,33 @@ class Box(Turtle):
 
 
 class Ball(Turtle):
-    def __init__(self, x, y):
+    def __init__(self):
         super().__init__()
         self.shape("circle")
         self.color("green")
-        self.shapesize(1,1)
+        self.shapesize(1, 1)
         self.penup()
+
+        self.x_pos = -20
+        self.y_pos = -100
+        self.tt = 0.1
+
+    def move_ball(self):
+        new_x = self.xcor() + self.x_pos
+        new_y = self.ycor() + self.y_pos
+        self.goto(new_x, new_y)
+
+    def bounceUp(self):
+        self.y_pos *= -1
+
+
 
 
 def position(event):
-    i,j =event.x, event.y
+    i, j = event.x, event.y
     print(f"{i}, {j}")
+
+    paddle.move(i-450)
 
 
 screen = Screen()
@@ -55,18 +68,18 @@ for box_x in range(-480, 500, 62):
         box = Box(box_x, box_y)
 
 paddle = Paddle(0, -380)
-ball = Ball(400, 400)
-
-
-
+ball = Ball()
 ws = screen.getcanvas()
 ws.bind("<Motion>", position)
 
 
 while 1:
     screen.update()
+    time.sleep(.1)
+    ball.move_ball()
 
+    if ball.ycor() > 380:
+        print("bounce")
+        ball.bounceUp()
 
 screen.exitonclick()
-
-
