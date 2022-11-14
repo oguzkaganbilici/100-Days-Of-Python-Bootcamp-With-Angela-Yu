@@ -1,0 +1,19 @@
+.property-body{
+  background-color: #F7A4A4;
+  text-align: left;
+  padding: 3%;
+}
+.image-body{
+  background-color: #FEBE8C;
+  text-align: center;
+  padding: 3%;
+}
+
+
+.box{
+height: 20px;
+width: 120px;
+}
+.inlineBlock{
+display: inline-block;
+}
