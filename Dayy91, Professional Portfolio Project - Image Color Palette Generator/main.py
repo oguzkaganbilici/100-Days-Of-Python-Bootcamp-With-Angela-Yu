@@ -24,6 +24,8 @@ def home():
     elif request.method == "POST":
         img = request.files["image"]
         color_count = request.form["colorCount"]
+        if color_count == "":
+            color_count = 10
         img.save(os.path.join(app.config["UPLOAD_FOLDER"], "deneme.jpg"))
         img_path = "static/images/deneme.jpg"
         dominant, palette = image_processing(img_path, int(color_count))
