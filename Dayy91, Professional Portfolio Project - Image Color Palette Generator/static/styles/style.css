@@ -1,19 +1,29 @@
-.property-body{
-  background-color: #F7A4A4;
-  text-align: left;
-  padding: 3%;
-}
-.image-body{
-  background-color: #FEBE8C;
-  text-align: center;
-  padding: 3%;
+body{
+  padding: 3% 7%;
+  background-color: #DEBACE;
 }
 
+p{
+  display:inline-block;
+}
+
+.choose-body{
+  margin-bottom: 3%;
+}
+.image{
+  width: 60%;
+  padding: 3% 0 ;
+}
 
 .box{
-height: 20px;
-width: 120px;
+  height: 30px;
+  width: 130px;
+  display:inline-block;
 }
-.inlineBlock{
-display: inline-block;
+
+.beside{
+  display: inline-block;
+}
+.table-left{
+  margin-left: 0;
 }
