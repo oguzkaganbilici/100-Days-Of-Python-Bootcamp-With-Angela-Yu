@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ emoji_}} {{word_}}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-word.css')}}">
+  </head>
+  <body>
+    <div class="question-div">
+      <form action="" method="post">
+        <h1 class="h3 mb-3 fw-normal">Enter a new word</h1>
+
+        <div class="form-floating">
+          <input class="form-control form-control-lg" name="word" type="text" placeholder=".form-control-lg" autofocus>
+
+          <label for="word"> Enter a word</label>
+          <button class="btn btn-lg btn-primary " type="submit">Search</button>
+        </div>
+
+      </form>
+    </div>
+    <hr>
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">{{ word_ }}</h1>
+        {% for i in def_ %}
+          {% for k in i["entries"][0]["senses"] %}
+            <p class="lead">●	{{ k["definitions"][0] }}</p>
+            {% if k["examples"]: %}
+              <p><em> {{ k["examples"][0]["text"] }}</em></p>
+            {% else %}
+              <p>None</p>
+            {% endif %}
+            {% endfor %}
+        {% endfor %}
+      </div>
+
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">synonyms of {{ word_ }}</h1>
+          <hr>
+          {% if syn_ != None %}
+          {% for i in syn_ %}
+          <p class="lead">✓ {{ i["text"] }}</p>
+          {% endfor %}
+          {% else %}
+            <p class="lead">None</p>
+          {% endif %}
+        </div>
+    </div>
+
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">phrases with {{ word_ }}</h1>
+        <hr>
+        {% if phr_ != None %}
+        {% for i in phr_ %}
+        <p class="lead">→ {{ i["text"] }}</p>
+        {% endfor %}
+        {% else %}
+          <p class="lead">None</p>
+        {% endif %}
+      </div>
+  </div>
+
+  </body>
+</html>
